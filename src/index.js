@@ -1,37 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import { FaStar } from 'react-icons/fa'
 
 import reportWebVitals from './reportWebVitals'
 
-const createArray = (length) => [...Array(length)]
-
-const Star = ({ selected = false, onSelect }) => {
-  return <FaStar color={selected ? 'red' : 'gray'} onClick={onSelect} />
-}
-
-const StarRating = ({ totalStars = 5 }) => {
-  const [selectedStars, setSelectedStars] = useState(0)
-  return (
-    <>
-      {createArray(totalStars).map((n, i) => (
-        <Star
-          key={i}
-          selected={selectedStars > i}
-          onSelect={() => setSelectedStars(i + 1)}
-        />
-      ))}
-      <p>
-        {selectedStars} of {totalStars}
-      </p>
-    </>
-  )
-}
-
 const App = () => {
-  const [checked, setChecked] = useState(false)
-  return <StarRating totalStars={4} />
+  const [name, setName] = useState('Sev')
+  const [admin, setAdmin] = useState(false)
+
+  useEffect(() => {
+    console.log(`Celebrate ${name}`)
+  }, [name])
+
+  useEffect(() => {
+    console.log(`The user is: ${admin ? 'admin' : 'not admin'}`)
+  }, [admin])
+
+  return (
+    <section>
+      <p>Congratulations {name}</p>
+      <button onClick={() => setName('Frogger')}>Change Winner</button>
+      <p>{admin ? 'logged in' : 'not logged in'}</p>
+      <button onClick={() => setAdmin(true)}>Log In</button>
+    </section>
+  )
 }
 
 ReactDOM.render(
